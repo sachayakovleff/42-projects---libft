@@ -96,16 +96,17 @@ char    **ft_cleararr(char **array, int length)
 char    **ft_split(const char *s, char c)
 {
     char    **array;
-    const int   length = ft_count(s, c);
     int     i;
 
     i = 0;
-    array = malloc(sizeof(char *) * (length + 1));
+    if (s[0] == '\0')
+        return (NULL);
+    array = malloc(sizeof(char *) * (ft_count(s, c) + 1));
     if (array == NULL)
         return (NULL);
-    while (i < length)
+    while (i < ft_count(s, c))
     {
-        array[i] = malloc(sizeof(char) * (ft_count2(s, c, i) + 1));
+        array[i] = malloc(sizeof(char) * (ft_count2(s, c, i)));
         if (array[i] == NULL)
             return (ft_cleararr(array, i));
         ft_setchar(array[i], s, c, i, 0);
