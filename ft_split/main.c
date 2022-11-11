@@ -9,8 +9,8 @@ int main(void)
     int i;
 
     i = 0;
-    array = ft_split((const char *)"Salutation", 'a');
-	while (array[i])
+    array = ft_split((const char *)"SSSSSSalutationS", 'S');
+	while (i < 4)
     {
         printf("returned: %s", array[i]);
         i++;
