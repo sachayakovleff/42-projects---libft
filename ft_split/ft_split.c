@@ -1,20 +1,8 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/11 16:13:37 by syakovle          #+#    #+#             */
-/*   Updated: 2022/11/13 17:54:33 by syakovle         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include <stdlib.h>
 #include <stdio.h>
-#include "libft.h"
+#include <string.h>
 
-size_t	wordlen(char const *s, char c)
+size_t	ft_getwordlen(char const *s, char c)
 {
 	size_t	i;
 	size_t	count;
@@ -29,7 +17,7 @@ size_t	wordlen(char const *s, char c)
 	return (count);
 }
 
-size_t	wordcount(char const *s, char c)
+size_t	ft_getarraylen(char const *s, char c)
 {
 	size_t	i;
 	size_t	count;
@@ -41,7 +29,7 @@ size_t	wordcount(char const *s, char c)
 		if (s[i] != c)
 		{
 			count++;
-			i += wordlen(&s[i], c);
+			i += ft_getwordlen(&s[i], c);
 		}
 		else
 			i++;
@@ -49,59 +37,67 @@ size_t	wordcount(char const *s, char c)
 	return (count);
 }
 
-char	*wordcpy(char *dst, const char *src, char c)
+char	*ft_setword(char *str, const char *s, char c)
 {
 	int	i;
 
 	i = 0;
-	while (src[i] != c && src[i])
+	while (s[i] != c && s[i])
 	{
-		dst[i] = src[i];
+		str[i] = s[i];
 		i++;
 	}
-	dst[i] = '\0';
-	return (dst);
+	str[i] = '\0';
+	return (str);
 }
 
-char	**ft_free(char **ret, int j)
+char	**ft_free(char **array, int j)
 {
 	int i;
 
 	i = 0;
 	while (i < j)
 	{
-		free(ret[i]);
+		free(array[i]);
 		i++;
 	}
-	free(ret);
+	free(array);
 	return (NULL);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_setstr(char **array, const char *s, char c)
 {
-	int		i;
-	int		j;
-	char	**ret;
+	int	i;
+	int j;
 
-	if (s == NULL)
-		return (NULL);
-	if (!(ret = malloc((wordcount(s, c) + 1) * sizeof(char*))))
-		return (NULL);
 	i = 0;
 	j = 0;
 	while (s[i])
 	{
 		if (s[i] != c)
 		{
-			if (!(ret[j] = malloc(((wordlen(&s[i], c) + 1)) * sizeof(char))))
-				return (ft_free(ret, j));
-			wordcpy(ret[j], &s[i], c);
+			array[j] = malloc(((ft_getwordlen(&s[i], c) + 1)) * sizeof(char));
+			if (array[j] == NULL)
+            	return (ft_free(array, j));
+			array[j] = ft_setword(array[j], &s[i], c);
 			j++;
-			i += wordlen(&s[i], c);
+			i += ft_getwordlen(&s[i], c);
 		}
 		else
 			i++;
 	}
-	ret[j] = NULL;
-	return (ret);
+	array[j] = NULL;
+	return (array);
+}
+
+char	**ft_split(char const *s, char c)
+{
+	char	**array;
+
+	if (s == NULL)
+		return (NULL);
+	array = malloc((ft_getarraylen(s, c) + 1) * sizeof(char*));
+    if (array == NULL)
+		return (NULL);
+    return (ft_setstr(array, s, c));	
 }
