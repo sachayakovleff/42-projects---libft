@@ -1,121 +1,107 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/11 16:13:37 by syakovle          #+#    #+#             */
+/*   Updated: 2022/11/13 17:38:40 by syakovle         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdlib.h>
 #include <stdio.h>
-#include <string.h>
+#include "libft.h"
 
-int     ft_count(const char *s, char c)
+size_t	wordlen(char const *s, char c)
 {
-    int i;
-    int count;
+	size_t	i;
+	size_t	count;
 
-    i = 0;
-    count = 0;
-    while(s[i])
-    {
-        if (s[i] == c)
-        {
-            count++;
-            while(s[i] == c)
-                i++;
-        }
-        i++;
-    }
-    if (s[strlen(s) - 1] == c)
-        count--;
-    if (s[0] == c)
-        count--;
-    return (count + 1);
+	i = 0;
+	count = 0;
+	while (s[i] && s[i] != c)
+	{
+		i++;
+		count++;
+	}
+	return (count);
 }
 
-int     ft_count2(const char *s, char c, int nb)
+size_t	wordcount(char const *s, char c)
 {
-    int i;
-    int count;
-    int res;
+	size_t	i;
+	size_t	count;
 
-    i = 0;
-    res = 0;
-    count = 0;
-    if (s[0] == c)
-        nb++;
-    while (s[i])
-    {
-        if (s[i] == c)
-        {
-            count++;
-            while(s[i] == c)
-                i++;
-        }
-        if (s[i] != c && count == nb)
-            res++;
-        i++;
-    }
-    return (res);
+	i = 0;
+	count = 0;
+	while (s[i])
+	{
+		if (s[i] != c)
+		{
+			count++;
+			i += wordlen(&s[i], c);
+		}
+		else
+			i++;
+	}
+	return (count);
 }
 
-void    ft_setchar(char *str, const char *s, char c, int nb, int k)
+char	*wordcpy(char *dst, const char *src, char c)
 {
-    int i;
-    int count;
+	int	i;
 
-    i = 0;
-    count = 0;
-    if (s[0] == c)
-        nb++;
-    while (s[i])
-    {
-        if (s[i] == c)
-        {
-            count++;
-            while(s[i] == c)
-                i++;
-        }
-        if (s[i] != c && count == nb)
-        {
-            str[k] = s[i];
-            k++;
-        }
-        i++;
-    }
-    str[k] = '\0';
+	i = 0;
+	while (src[i] != c && src[i])
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+	return (dst);
 }
 
-char    **ft_cleararr(char **array, int length)
+char	**ft_free(char **ret, int j)
 {
-    int     i;
+	int i;
 
-    i = 0;
-    while(i < length)
-    {
-        free(array[i]);
-        i++;
-    }
-    free(array);
-    return (NULL);
+	i = 0;
+	while (i < j)
+	{
+		free(ret[i]);
+		i++;
+	}
+	free(ret);
+	return (NULL);
 }
 
-char    **ft_split(const char *s, char c)
+char	**ft_split(char const *s, char c)
 {
-    char    **array;
-    int     i;
+	int		i;
+	int		j;
+	char	**ret;
 
-    i = 0;
-    if (s[0] == '\0')
-        return (NULL);
-    array = malloc(sizeof(char *) * (ft_count(s, c) + 1));
-    if (array == NULL)
-        return (NULL);
-    while (i < ft_count(s, c))
-    {
-        array[i] = malloc(sizeof(char) * (ft_count2(s, c, i)));
-        if (array[i] == NULL)
-            return (ft_cleararr(array, i));
-        ft_setchar(array[i], s, c, i, 0);
-        i++;
-    }
-    array[i] = malloc(sizeof(char));
-    if (array[i] == NULL)
-        return (NULL);
-    array[i][0] = '\0';
-    array[i] = NULL;
-    return (array);
+	if (s == NULL)
+		return (NULL);
+	if (!(ret = malloc((wordcount(s, c) + 2) * sizeof(char*))))
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (s[i])
+	{
+		if (s[i] != c)
+		{
+			if (!(ret[j] = malloc(((wordlen(&s[i], c) + 2)) * sizeof(char))))
+				return (ft_free(ret, j));
+			wordcpy(ret[j], &s[i], c);
+			j++;
+			i += wordlen(&s[i], c);
+		}
+		else
+			i++;
+	}
+	ret[j] = NULL;
+	return (ret);
 }
