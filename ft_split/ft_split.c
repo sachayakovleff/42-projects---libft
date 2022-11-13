@@ -6,7 +6,7 @@
 /*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 16:13:37 by syakovle          #+#    #+#             */
-/*   Updated: 2022/11/13 17:38:40 by syakovle         ###   ########.fr       */
+/*   Updated: 2022/11/13 17:54:33 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ char	**ft_split(char const *s, char c)
 
 	if (s == NULL)
 		return (NULL);
-	if (!(ret = malloc((wordcount(s, c) + 2) * sizeof(char*))))
+	if (!(ret = malloc((wordcount(s, c) + 1) * sizeof(char*))))
 		return (NULL);
 	i = 0;
 	j = 0;
@@ -93,7 +93,7 @@ char	**ft_split(char const *s, char c)
 	{
 		if (s[i] != c)
 		{
-			if (!(ret[j] = malloc(((wordlen(&s[i], c) + 2)) * sizeof(char))))
+			if (!(ret[j] = malloc(((wordlen(&s[i], c) + 1)) * sizeof(char))))
 				return (ft_free(ret, j));
 			wordcpy(ret[j], &s[i], c);
 			j++;
