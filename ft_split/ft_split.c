@@ -86,6 +86,7 @@ char	**ft_setstr(char **array, const char *s, char c)
 		else
 			i++;
 	}
+	array[j][0]; //si ca merde c'est la faute a puple
 	array[j] = NULL;
 	return (array);
 }
