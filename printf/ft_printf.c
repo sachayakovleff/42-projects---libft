@@ -11,25 +11,45 @@
 /* ************************************************************************** */
 
 #include <stdarg.h>
+#include <stdio.h>
 #include "libft.h"
 
-char	*ft_getstr(char *str, va_list args)
+void	ft_getstring(char *str, va_list args)
 {
-	
+	if (str[0] == 's')
+		ft_putstr_fd(va_arg(args, char *), 1);
+	if (str[0] == 'c')
+		ft_putchar_fd(va_arg(args, int), 1);
+	// if (str[0] == 'p') // à faire
+		// return (va_arg(args, void *));
+	if (str[0] == 'd')
+		ft_putnbr_fd(va_arg(args, int), 1);
+	if (str[0] == 'i')
+		ft_putnbr_fd(va_arg(args, int), 1);
+	if (str[0] == 'u')
+		ft_putnbr_fd(va_arg(args, unsigned int), 1);
+	// if (str[0] == 'x')
+	// 	ft_tohexamin(va_arg(args, unsigned int));
+	// if (str[0] == 'X')
+	// 	ft_tohexamaj(va_arg(args, unsigned int));
+	if (str[0] == '%')
+		ft_putchar_fd('%', 1); 
 }
 
 int	ft_printf(char *str, ...)
 {
 	va_list	args;
 	int		i;
-	char	*s;
 
 	i = 0;
 	va_start(args, str);
 	while (str[i])
 	{
 		if (str[i] == '%')
-			ft_putstr_fd(ft_getstr(str + i, args), 1);
+		{
+			i++;
+			ft_getstring(str + i, args);
+		}
 		else
 			ft_putchar_fd(str[i], 1);
 		i++;
