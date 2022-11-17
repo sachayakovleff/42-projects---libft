@@ -6,7 +6,7 @@
 /*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 15:42:54 by syakovle          #+#    #+#             */
-/*   Updated: 2022/11/14 14:12:52 by syakovle         ###   ########.fr       */
+/*   Updated: 2022/11/16 17:07:43 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,23 +29,35 @@ int	ft_check(char s1, const char *set)
 	return (1);
 }
 
-int	ft_count(const char *s1, const char *set)
+int	ft_count(const char *s1, const char *set, int i)
 {
-	int	i;
-	int	count;
+	int	first;
+	int	last;
 
-	i = 0;
-	count = 0;
 	while (s1[i])
 	{
-		if (ft_check(s1[i], set))
-			count++;
+		if (!ft_check(s1[i], set))
+		{
+			first = i;
+			last = i;
+			break ;
+		}
 		i++;
 	}
-	return (count);
+	i = ft_strlen(s1) - 1;
+	while (s1[i])
+	{
+		if (!ft_check(s1[i], set))
+		{
+			last = i;
+			break ;
+		}
+		i--;
+	}
+	return (last - first - 1);
 }
 
-void	ft_setchar(char *str, const char *s1, const char *set)
+void	ft_setchar(char *str, const char *s1, const char *set, int length)
 {
 	int	i;
 	int	j;
@@ -56,8 +68,12 @@ void	ft_setchar(char *str, const char *s1, const char *set)
 	{
 		if (ft_check(s1[j], set))
 		{
-			str[i] = s1[j];
-			i++;
+			while (i < length)
+			{
+				str[i] = s1[j];
+				i++;
+				j++;
+			}
 		}
 		j++;
 	}
@@ -71,10 +87,10 @@ char	*ft_strtrim(const char *s1, const char *set)
 
 	if (!s1)
 		return (NULL);
-	length = ft_count(s1, set);
+	length = ft_count(s1, set, 0);
 	str = malloc(sizeof(char) * (length + 1));
 	if (str == NULL)
 		return (NULL);
-	ft_setchar(str, s1, set);
+	ft_setchar(str, s1, set, length);
 	return (str);
 }
