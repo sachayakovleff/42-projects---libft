@@ -113,56 +113,27 @@ void	ft_putnbrbaseup(size_t nb)
 }
 
 
-int	ft_getlength(size_t s)
-{
-	int	count;
-
-	count = 0;
-	while (s > 0)
-	{
-		count++;
-		s /= 10;
-	}
-	return (count);
-}
-
-char	*ft_tohexamin(size_t s)
-{
-	char		*str;
-	int			i;
-	const int	length = ft_getlength(s);
-
-	i = 0;
-	str = malloc(sizeof(char) * (length + 1));
-	if (str == NULL)
-		return (NULL);
-	while (i < length)
-	{
-		str[i] = ft_getchar(s, i);
-		i++;
-	}
-	str[i] = '\0';
-	return (str);
-}
-
 void	ft_getstring(char *str, va_list args)
 {
 	if (str[0] == 's')
 		ft_putstr_fd(va_arg(args, char *), 1);
 	else if (str[0] == 'c')
 		ft_putchar_fd(va_arg(args, int), 1);
-	// if (str[0] == 'p') // à faire
-		// return (va_arg(args, void *));
-	if (str[0] == 'd')
+	else if (str[0] == 'p')
+	{
+		ft_putstr_fd("0x", 1);
+		ft_putnbrbase(va_arg(args, size_t));
+	}
+	else if (str[0] == 'd' || str[0] == 'i')
 		ft_putnbr_fd(va_arg(args, int), 1);
 	else if (str[0] == 'u')
 		ft_putnbr_fd(va_arg(args, unsigned int), 1);
-	// if (str[0] == 'x')
-	// 	ft_tohexamin(va_arg(args, unsigned int));
-	// if (str[0] == 'X')
-	// 	ft_tohexamaj(va_arg(args, unsigned int));
-	if (str[0] == '%')
-		ft_putchar_fd('%', 1); 
+	else if (str[0] == 'x')
+		ft_putnbrbase(va_arg(args, unsigned int));
+	else if (str[0] == 'X')
+		ft_putnbrbaseup(va_arg(args, unsigned int));
+	else if (str[0] == '%')
+		ft_putchar_fd('%', 1);
 }
 
 int	ft_printf(char *str, ...)
@@ -185,6 +156,14 @@ int	ft_printf(char *str, ...)
 	}
 	return (0);
 }
+
+int	main(void)
+{
+	ft_printf("yo je test si la %s fonctionne bien avec les int comme %d, ecrit en hexa avec %x ou %X ou %p \n", "fonction", 37502, 37502, 37502, (size_t)37502);
+	printf("yo je test si la %s fonctionne bien avec les int comme %d, ecrit en hexa avec %x ou %X ou %p \n", "fonction", 37502, 37502, 37502, 37502);
+	return (0);
+}
+
 
 int	main(void)
 {
