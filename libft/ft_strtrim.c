@@ -6,7 +6,7 @@
 /*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 15:42:54 by syakovle          #+#    #+#             */
-/*   Updated: 2022/11/16 17:07:43 by syakovle         ###   ########.fr       */
+/*   Updated: 2022/11/18 15:58:53 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int	ft_check(char s1, const char *set)
 	int	i;
 
 	i = 0;
+	if (s1 == '\0')
+		return (0);
 	while (set[i])
 	{
 		if (set[i] == s1)
@@ -29,68 +31,71 @@ int	ft_check(char s1, const char *set)
 	return (1);
 }
 
-int	ft_count(const char *s1, const char *set, int i)
+int	ft_only(const char *s1, const char *set)
 {
-	int	first;
-	int	last;
+	int	i;
 
+	i = 0;
 	while (s1[i])
 	{
-		if (!ft_check(s1[i], set))
+		if (ft_check(s1[i], set))
 		{
-			first = i;
-			last = i;
-			break ;
+			return (0);
 		}
 		i++;
 	}
-	i = ft_strlen(s1) - 1;
-	while (s1[i])
-	{
-		if (!ft_check(s1[i], set))
-		{
-			last = i;
-			break ;
-		}
-		i--;
-	}
-	return (last - first - 1);
+	return (1);
 }
 
-void	ft_setchar(char *str, const char *s1, const char *set, int length)
+int	ft_getstart(const char *s1, const char *set)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	j = 0;
-	while (s1[j])
+	while (s1[i])
 	{
-		if (ft_check(s1[j], set))
-		{
-			while (i < length)
-			{
-				str[i] = s1[j];
-				i++;
-				j++;
-			}
-		}
-		j++;
+		if (!ft_check(s1[i], set) && ft_check(s1[i + 1], set))
+			return (i + 1);
+		i++;
 	}
-	str[i] = '\0';
+	if (ft_only(s1, set))
+		return (i);
+	return (0);
 }
 
-char	*ft_strtrim(const char *s1, const char *set)
+int	ft_getlast(const char *s1, const char *set, const int start)
 {
-	int		length;
-	char	*str;
+	int	i;
 
-	if (!s1)
+	i = ft_strlen(s1) - 1;
+	while (i > start)
+	{
+		if (!ft_check(s1[i], set) && ft_check(s1[i - 1], set))
+			return (i);
+		i--;
+	}
+	return (ft_strlen(s1));
+}
+
+char	*ft_strtrim(char const *s1, char const *set)
+{
+	const int	start = ft_getstart(s1, set);
+	const int	end = ft_getlast(s1, set, start);
+	char		*str;
+	int			i;
+	int			j;
+
+	str = malloc(sizeof(char) * (end - start + 1));
+	if (!str)
 		return (NULL);
-	length = ft_count(s1, set, 0);
-	str = malloc(sizeof(char) * (length + 1));
-	if (str == NULL)
-		return (NULL);
-	ft_setchar(str, s1, set, length);
+	i = start;
+	j = 0;
+	while (i < end)
+	{
+		str[j] = s1[i];
+		j++;
+		i++;
+	}
+	str[j] = '\0';
 	return (str);
 }

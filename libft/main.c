@@ -5,14 +5,25 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/16 16:24:50 by syakovle          #+#    #+#             */
-/*   Updated: 2022/11/16 17:07:58 by syakovle         ###   ########.fr       */
+/*   Created: 2022/11/18 12:32:28 by syakovle          #+#    #+#             */
+/*   Updated: 2022/11/18 15:56:22 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
+#include "libft.h"
+
 char	*ft_strtrim(const char *s1, const char *set);
 
-void    main(void)
+int main(void)
 {
-    printf(ft_strtrim((const char *)"salutastions", "s"));
+    char    *str;
+
+    str = ft_strtrim("\0hjhk", "\0");
+    printf("%s\n", str);
+    if (str == NULL)
+        return (0);
+    if (str)
+        free(str);
+    return (0);
 }
