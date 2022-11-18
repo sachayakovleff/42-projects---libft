@@ -6,13 +6,13 @@
 /*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 13:20:34 by syakovle          #+#    #+#             */
-/*   Updated: 2022/11/13 13:53:33 by syakovle         ###   ########.fr       */
+/*   Updated: 2022/11/17 18:42:27 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
-void	ft_putchar_fd(char c, int fd)
+int	ft_putchar_fd(char c, int fd)
 {
 	write(fd, &c, 1);
 }

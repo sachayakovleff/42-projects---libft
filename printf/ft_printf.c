@@ -6,16 +6,17 @@
 /*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:34:21 by syakovle          #+#    #+#             */
-/*   Updated: 2022/11/16 15:07:39 by syakovle         ###   ########.fr       */
+/*   Updated: 2022/11/17 18:55:25 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdarg.h>
 #include <stdio.h>
-#include "libft/libft.h"
 #include <limits.h>
+#include <stdlib.h>
+#include <unistd.h>
 
-void	ft_putstr_fd(char *s, int fd)
+int	ft_putstr_fd(char *s, int fd)
 {
 	int	i;
 
@@ -25,11 +26,13 @@ void	ft_putstr_fd(char *s, int fd)
 		write(fd, &s[i], 1);
 		i++;
 	}
+	return (i);
 }
 
-void	ft_putchar_fd(char c, int fd)
+int	ft_putchar_fd(char c, int fd)
 {
 	write(fd, &c, 1);
+	return (1);
 }
 
 int	ft_count(size_t nb)
@@ -70,7 +73,7 @@ void	ft_putnbr_fd(int n, int fd)
 		ft_putchar_fd(n + '0', fd);
 }
 
-void	ft_putnbrbase(size_t nb)
+int	ft_putnbrbase(size_t nb)
 {
 	int		i;
 	char	*str;
@@ -80,7 +83,7 @@ void	ft_putnbrbase(size_t nb)
 	i = length - 1;
 	str = malloc(sizeof(char) * (length + 1));
 	if (!str)
-		return ;
+		return (0);
 	while (i >= 0)
 	{
 		str[i] = hex[nb % 16];
@@ -88,10 +91,10 @@ void	ft_putnbrbase(size_t nb)
 		i--; 
 	}
 	str[length] = '\0';
-	ft_putstr_fd(str, 1);
+	return(ft_putstr_fd(str, 1));
 }
 
-void	ft_putnbrbaseup(size_t nb)
+int	ft_putnbrbaseup(size_t nb)
 {
 	int		i;
 	char	*str;
@@ -101,7 +104,7 @@ void	ft_putnbrbaseup(size_t nb)
 	i = length - 1;
 	str = malloc(sizeof(char) * (length + 1));
 	if (!str)
-		return ;
+		return (0);
 	while (i >= 0)
 	{
 		str[i] = hex[nb % 16];
@@ -109,65 +112,69 @@ void	ft_putnbrbaseup(size_t nb)
 		i--; 
 	}
 	str[length] = '\0';
-	ft_putstr_fd(str, 1);
+	return(ft_putstr_fd(str, 1));
 }
 
 
-void	ft_getstring(char *str, va_list args)
+int	ft_getstring(char *str, va_list args)
 {
 	if (str[0] == 's')
-		ft_putstr_fd(va_arg(args, char *), 1);
+		return (ft_putstr_fd(va_arg(args, char *), 1));
 	else if (str[0] == 'c')
-		ft_putchar_fd(va_arg(args, int), 1);
+		return (ft_putchar_fd(va_arg(args, int), 1));
 	else if (str[0] == 'p')
 	{
 		ft_putstr_fd("0x", 1);
-		ft_putnbrbase(va_arg(args, size_t));
+		return (ft_putnbrbase(va_arg(args, size_t)) + 2);
 	}
 	else if (str[0] == 'd' || str[0] == 'i')
 		ft_putnbr_fd(va_arg(args, int), 1);
 	else if (str[0] == 'u')
 		ft_putnbr_fd(va_arg(args, unsigned int), 1);
 	else if (str[0] == 'x')
-		ft_putnbrbase(va_arg(args, unsigned int));
+		return (ft_putnbrbase(va_arg(args, unsigned int)));
 	else if (str[0] == 'X')
-		ft_putnbrbaseup(va_arg(args, unsigned int));
+		return (ft_putnbrbaseup(va_arg(args, unsigned int)));
 	else if (str[0] == '%')
-		ft_putchar_fd('%', 1);
+		return (ft_putchar_fd('%', 1));
+	else
+	{
+		ft_putchar_fd('%', 1) ;
+		return (ft_putchar_fd(str[0], 1) + 1);
+	}
 }
 
 int	ft_printf(char *str, ...)
 {
 	va_list	args;
 	int		i;
+	int		count;
 
 	i = 0;
+	count = 0;
 	va_start(args, str);
 	while (str[i])
 	{
 		if (str[i] == '%' && str[i + 1])
 		{
 			i++;
-			ft_getstring(str + i, args);
+			count += ft_getstring(str + i, args);
 		}
 		else
 			ft_putchar_fd(str[i], 1);
+			count++;
 		i++;
 	}
-	return (0);
+	return (count);
 }
 
 int	main(void)
 {
-	ft_printf("yo je test si la %s fonctionne bien avec les int comme %d, ecrit en hexa avec %x ou %X ou %p \n", "fonction", 37502, 37502, 37502, (size_t)37502);
-	printf("yo je test si la %s fonctionne bien avec les int comme %d, ecrit en hexa avec %x ou %X ou %p \n", "fonction", 37502, 37502, 37502, 37502);
-	return (0);
-}
+	int	i;
 
-
-int	main(void)
-{
-	ft_printf("yo je test si la %s fonctionne bien avec les int comme %d, ecrit en hexa avec %x ou %X ou %p \n", "fonction", 37502, 37502, 37502, (size_t)37502);
-	printf("yo je test si la %s fonctionne bien avec les int comme %d, ecrit en hexa avec %x ou %X ou %p \n", "fonction", 37502, 37502, 37502, 37502);
+	i = ft_printf("yo je test si la %s fonctionne bie%%n avec les int comme %d, ecrit en hexa avec %x ou %X ou %p \n", "", 2147483647, 37502, INT_MIN, (void *)37502);
+	printf("valeur de i ma ft: %d\n", i);
+	i = printf("yo je test si la %s fonctionne bie%%n avec les int comme %d, ecrit en hexa avec %x ou %X ou %p \n", "", 2147483647, 37502, INT_MIN, (void *)37502);
+	printf("valeur de i vraie ft: %d\n", i);
 	return (0);
 }
