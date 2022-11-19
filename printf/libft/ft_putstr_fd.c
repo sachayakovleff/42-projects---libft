@@ -6,13 +6,13 @@
 /*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 13:20:46 by syakovle          #+#    #+#             */
-/*   Updated: 2022/11/17 18:42:21 by syakovle         ###   ########.fr       */
+/*   Updated: 2022/11/19 16:00:05 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
-int	ft_putstr_fd(char *s, int fd)
+void	ft_putstr_fd(char *s, int fd, int *j)
 {
 	int	i;
 
@@ -20,6 +20,7 @@ int	ft_putstr_fd(char *s, int fd)
 	while (s[i])
 	{
 		write(fd, &s[i], 1);
+		*j = *j + 1;
 		i++;
 	}
 }

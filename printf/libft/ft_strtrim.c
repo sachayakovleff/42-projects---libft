@@ -6,7 +6,7 @@
 /*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 15:42:54 by syakovle          #+#    #+#             */
-/*   Updated: 2022/11/14 14:12:52 by syakovle         ###   ########.fr       */
+/*   Updated: 2022/11/19 16:15:19 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "libft.h"
 #include <stdio.h>
 
-int	ft_check(char s1, const char *set)
+static int	ft_check(char s1, const char *set)
 {
 	int	i;
 
@@ -29,7 +29,7 @@ int	ft_check(char s1, const char *set)
 	return (1);
 }
 
-int	ft_count(const char *s1, const char *set)
+static int	ft_count(const char *s1, const char *set)
 {
 	int	i;
 	int	count;

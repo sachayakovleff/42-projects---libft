@@ -1,19 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
+/*   ft_countpf.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/13 13:20:34 by syakovle          #+#    #+#             */
-/*   Updated: 2022/11/19 15:59:38 by syakovle         ###   ########.fr       */
+/*   Created: 2022/11/19 16:11:30 by syakovle          #+#    #+#             */
+/*   Updated: 2022/11/19 16:16:39 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include <stddef.h>
+#include "libft.h"
 
-void	ft_putchar_fd(char c, int fd, int *d)
+int	ft_countpf(size_t nb)
 {
-	write(fd, &c, 1);
-	*d += 1;
+	int	count;
+
+	count = 0;
+	while (nb > 0)
+	{
+		nb /= 16;
+		count++;
+	}
+	return (count);
 }
