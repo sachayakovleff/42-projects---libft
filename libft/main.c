@@ -19,7 +19,7 @@ int main(void)
 {
     char    *str;
 
-    str = ft_strtrim("\0hjhk", "\0");
+    str = ft_strtrim("saluations", "s ");
     printf("%s\n", str);
     if (str == NULL)
         return (0);

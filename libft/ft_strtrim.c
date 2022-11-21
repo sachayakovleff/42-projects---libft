@@ -52,39 +52,31 @@ int	ft_getstart(const char *s1, const char *set)
 	int	i;
 
 	i = 0;
-	while (s1[i])
-	{
-		if (!ft_check(s1[i], set) && ft_check(s1[i + 1], set))
-			return (i + 1);
+	while (!ft_check(s1[i], set))
 		i++;
-	}
-	if (ft_only(s1, set))
-		return (i);
-	return (0);
+	return (i);
 }
 
-int	ft_getlast(const char *s1, const char *set, const int start)
+int	ft_getlast(const char *s1, const char *set)
 {
 	int	i;
 
 	i = ft_strlen(s1) - 1;
-	while (i > start)
-	{
-		if (!ft_check(s1[i], set) && ft_check(s1[i - 1], set))
-			return (i);
+	while (!ft_check(s1[i], set))
 		i--;
-	}
-	return (ft_strlen(s1));
+	return (i + 1);
 }
 
 char	*ft_strtrim(char const *s1, char const *set)
 {
 	const int	start = ft_getstart(s1, set);
-	const int	end = ft_getlast(s1, set, start);
+	const int	end = ft_getlast(s1, set);
 	char		*str;
 	int			i;
 	int			j;
 
+	if (ft_only(s1, set))
+		return (NULL);
 	str = malloc(sizeof(char) * (end - start + 1));
 	if (!str)
 		return (NULL);
