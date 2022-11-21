@@ -32,4 +32,5 @@ void	ft_putnbrbase(size_t nb, int *d)
 	}
 	str[length] = '\0';
 	ft_putstr_fd(str, 1, d);
+	free(str);
 }

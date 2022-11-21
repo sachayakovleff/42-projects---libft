@@ -36,6 +36,7 @@ void	ft_putnbrbaseup(size_t nb, int *d)
 	}
 	str[length] = '\0';
 	ft_putstr_fd(str, 1, d);
+	free(str);
 }
 
 void	ft_getstring(char *str, va_list args, int *i)

@@ -19,8 +19,9 @@ int main(void)
 {
     char    *str;
 
-    str = ft_strtrim("saluations", "s ");
-    printf("%s\n", str);
+    str = ft_strtrim("   xxxtripouille   xxx", " x");
+    if (str)
+	printf("%s\n", str);
     if (str == NULL)
         return (0);
     if (str)
