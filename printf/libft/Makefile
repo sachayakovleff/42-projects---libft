@@ -6,44 +6,76 @@
 #    By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/09 12:01:20 by syakovle          #+#    #+#              #
-#    Updated: 2022/11/22 15:15:17 by syakovle         ###   ########.fr        #
+#    Updated: 2022/11/22 15:09:44 by syakovle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = ft_printf.a
+NAME = libft.a
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 AR = ar rcs
 RM = rm -f
-LIBFT = libft/libft.a
 
-FILES = ft_printf
+FILES = ft_memset \
+		ft_bzero \
+		ft_countpf \
+		ft_memcpy \
+		ft_memmove \
+		ft_memchr \
+		ft_memcmp \
+		ft_strlen \
+		ft_strlcpy \
+		ft_strlcat \
+		ft_strchr \
+		ft_strrchr \
+		ft_strnstr \
+		ft_strncmp \
+		ft_atoi \
+		ft_isalpha \
+		ft_isdigit \
+		ft_isalnum \
+		ft_isascii \
+		ft_isprint \
+		ft_toupper \
+		ft_tolower \
+		ft_calloc \
+		ft_strdup \
+		ft_strjoin \
+		ft_substr \
+		ft_strtrim \
+		ft_split \
+		ft_itoa \
+		ft_strmapi \
+		ft_striteri \
+		ft_putchar_fd \
+		ft_putstr_fd \
+		ft_putendl_fd \
+		ft_putnbr_fd \
 
-SRCS_DIR = ./ft_printf/
+SRCS_DIR = ./
 SRCS = $(addprefix $(SRCS_DIR), $(addsuffix .c, $(FILES)))
+SRCS_B = $(addprefix $(SRCS_DIR), $(addsuffix .c, $(FILES_B)))
 
-OBJS_DIR = ./ft_printf/
+OBJS_DIR = ./
 OBJS = $(addprefix $(OBJS_DIR), $(addsuffix .o, $(FILES)))
+OBJS_B = $(addprefix $(OBJS_DIR), $(addsuffix .o, $(FILES_B)))
 
 
 .c.o: $(SRCS)
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 $(NAME): $(OBJS)
-	$(AR) $@ $(OBJS)
-	@make all -C libft
+	$(AR) $@ $^
 
 all: $(NAME)
 
 clean:
-	@make clean -C libft
-	$(RM) $(OBJS)
+	$(RM) $(OBJS) $(OBJS_B)
 
 fclean: clean
-	@make fclean -C libft
 	$(RM) $(NAME)
 
 re: clean all
 
-.PHONY: all clean fclean re
+.PHONY: bonus all clean fclean re
