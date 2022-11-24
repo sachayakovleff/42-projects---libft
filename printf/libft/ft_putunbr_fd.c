@@ -1,32 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_putunbr_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/13 13:20:46 by syakovle          #+#    #+#             */
-/*   Updated: 2022/11/24 17:20:50 by syakovle         ###   ########.fr       */
+/*   Created: 2022/11/13 13:20:42 by syakovle          #+#    #+#             */
+/*   Updated: 2022/11/24 16:09:20 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
+#include <limits.h>
+#include "libft.h"
+#include <stdio.h>
 
-void	ft_putstr_fd(char *s, int fd, int *j)
+void	ft_putunbr_fd(unsigned int n, int fd, int *d)
 {
-	int	i;
-
-	i = 0;
-	if (!s || s == NULL)
+	if (n >= 10)
 	{
-		write (fd, "(null)", 6);
-		*j = *j + 6;
-		return ;
+		ft_putnbr_fd(n / 10, fd, d);
+		ft_putnbr_fd(n % 10, fd, d);
 	}
-	while (s[i])
-	{
-		write(fd, &s[i], 1);
-		*j = *j + 1;
-		i++;
-	}
+	else
+		ft_putchar_fd(n + '0', fd, d);
 }

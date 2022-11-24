@@ -6,7 +6,7 @@
 /*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 13:20:42 by syakovle          #+#    #+#             */
-/*   Updated: 2022/11/19 15:59:29 by syakovle         ###   ########.fr       */
+/*   Updated: 2022/11/24 16:07:44 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void	ft_putnbr_fd(int n, int fd, int *d)
 		}
 		else
 		{
-			n = n * -1;
 			ft_putchar_fd('-', fd, d);
+			n *= -1;
 		}
 	}
 	if (n >= 10)
