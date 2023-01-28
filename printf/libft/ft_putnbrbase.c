@@ -6,7 +6,7 @@
 /*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 15:31:31 by syakovle          #+#    #+#             */
-/*   Updated: 2022/11/24 17:09:19 by syakovle         ###   ########.fr       */
+/*   Updated: 2022/11/19 16:19:10 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ void	ft_putnbrbase(size_t nb, int *d)
 	str = malloc(sizeof(char) * (length + 1));
 	if (!str)
 		return ;
-	if (nb == 0)
-		str[0] = '0';
 	while (i >= 0)
 	{
 		str[i] = hex[nb % 16];
@@ -34,5 +32,4 @@ void	ft_putnbrbase(size_t nb, int *d)
 	}
 	str[length] = '\0';
 	ft_putstr_fd(str, 1, d);
-	free (str);
 }

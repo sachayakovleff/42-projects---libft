@@ -6,7 +6,7 @@
 #    By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/09 12:01:20 by syakovle          #+#    #+#              #
-#    Updated: 2022/11/24 17:13:18 by syakovle         ###   ########.fr        #
+#    Updated: 2022/11/22 15:09:44 by syakovle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,10 +52,6 @@ FILES = ft_memset \
 		ft_putstr_fd \
 		ft_putendl_fd \
 		ft_putnbr_fd \
-		ft_putnbrbase \
-		ft_putunbr_fd \
-		ft_putnbrpbase \
-		ft_putstr0x_fd \
 
 SRCS_DIR = ./
 SRCS = $(addprefix $(SRCS_DIR), $(addsuffix .c, $(FILES)))

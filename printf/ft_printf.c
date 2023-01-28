@@ -6,7 +6,7 @@
 /*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:34:21 by syakovle          #+#    #+#             */
-/*   Updated: 2022/11/24 17:18:30 by syakovle         ###   ########.fr       */
+/*   Updated: 2022/11/22 15:48:08 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include "libft/libft.h"
-#include "ft_printf.h"
 
 void	ft_putnbrbaseup(size_t nb, int *d)
 {
@@ -29,8 +28,6 @@ void	ft_putnbrbaseup(size_t nb, int *d)
 	str = malloc(sizeof(char) * (length + 1));
 	if (!str)
 		return ;
-	if (nb == 0)
-		str[0] = '0';
 	while (i >= 0)
 	{
 		str[i] = hex[nb % 16];
@@ -39,10 +36,10 @@ void	ft_putnbrbaseup(size_t nb, int *d)
 	}
 	str[length] = '\0';
 	ft_putstr_fd(str, 1, d);
-	free (str);
+	free(str);
 }
 
-void	ft_getstring(const char *str, va_list args, int *i)
+void	ft_getstring(char *str, va_list args, int *i)
 {
 	if (str[0] == 's')
 		ft_putstr_fd(va_arg(args, char *), 1, i);
@@ -50,12 +47,13 @@ void	ft_getstring(const char *str, va_list args, int *i)
 		ft_putchar_fd(va_arg(args, int), 1, i);
 	else if (str[0] == 'p')
 	{
-		ft_putnbrpbase(va_arg(args, size_t), i);
+		ft_putstr_fd("0x", 1, i);
+		ft_putnbrbase(va_arg(args, size_t), i);
 	}
 	else if (str[0] == 'd' || str[0] == 'i')
 		ft_putnbr_fd(va_arg(args, int), 1, i);
 	else if (str[0] == 'u')
-		ft_putunbr_fd(va_arg(args, unsigned int), 1, i);
+		ft_putnbr_fd(va_arg(args, unsigned int), 1, i);
 	else if (str[0] == 'x')
 		ft_putnbrbase(va_arg(args, unsigned int), i);
 	else if (str[0] == 'X')
@@ -69,7 +67,7 @@ void	ft_getstring(const char *str, va_list args, int *i)
 	}
 }
 
-int	ft_printf(const char *str, ...)
+int	ft_printf(char *str, ...)
 {
 	va_list	args;
 	int		i;
@@ -85,12 +83,11 @@ int	ft_printf(const char *str, ...)
 		if (str[i] == '%' && str[i + 1])
 		{
 			i++;
-			ft_getstring((const char *)str + i, args, count);
+			ft_getstring(str + i, args, count);
 		}
 		else
 			ft_putchar_fd(str[i], 1, count);
 		i++;
 	}
-	va_end(args);
 	return (res);
 }
