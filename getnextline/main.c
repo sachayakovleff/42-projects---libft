@@ -4,29 +4,40 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 char *get_next_line(int fd);
 
-int main(int *ac, char **argv)
+int main(void)
 {
+	//all tests
 	int	fd;
 	char	*str;
 
-	(void) ac;
+	fd = open("42.txt", O_RDONLY);
+	while (true)
+	{
+		str = get_next_line(fd);
+		if (str != NULL)
+			printf("%s\n", str);
+		if (str != NULL)
+			free(str);
+		else
+			return(0);
+	}
+	return (0);
+
+	//test line by line
+	/*
+	int	fd;
+	char	*str;
+
 	fd = open("42.txt", O_RDONLY);
 	str = get_next_line(fd);
-	printf(str);
-	if (*str)
+	if (str != NULL)
+		printf("%s\n", str);
+	if (str != NULL && *str)
 		free(str);
-	str = get_next_line(fd);
-	printf(str);
-	if (*str)
-		free(str);
-	str = get_next_line(fd);
-	printf(str);
-	if (*str)
-		free(str);
-	
-	close(fd);
 	return (0);
+	*/
 }

@@ -50,8 +50,7 @@ char	*ft_strjoins(char *s1, char *s2)
 		i++;
 		j++;
 	}
-	if(*s2)
-		free(s2);
+	free(s2);
 	str[i] = 0;
 	return (str);
 }
