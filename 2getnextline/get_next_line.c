@@ -116,17 +116,17 @@ char    *get_next_line(int fd)
 		return(returned_line);
 	}
 	read_line = ft_read(fd);
-    if (saved_chars == "" && (read_line == NULL || (read_line[0] == 0)))
+    if (saved_chars[0] == 0 && (read_line == NULL || (read_line[0] == 0)))
 	{
+		free(saved_chars);
 		free(read_line);
         return (NULL);
 	}
 	if (!ft_eol(read_line) && read_line != NULL)
 	{
 		returned_line = ft_strjoins(saved_chars, read_line);
-		free(saved_chars);
-		saved_chars = "";
-		free(read_line);
+		saved_chars = malloc(1);
+		saved_chars[0] = 0;
 		return(returned_line);
 	}
 	returned_line = ft_getresult(saved_chars ,read_line);

@@ -8,7 +8,7 @@
 
 char *get_next_line(int fd);
 
-int main(int *ac, char **argv)
+int main(void)
 {
 	//all tests
 	int	fd;
