@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdbool.h>
-#include <stdio.h>
 
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strjoins(char *s1, char *s2);
@@ -10,6 +9,8 @@ int		ft_strlen(char *theString);
 
 int		ft_eol(char *buffer)
 {
+	if (buffer == NULL)
+		return (0);
 	while(*buffer)
 	{
 		if (*buffer == '\n')
@@ -104,7 +105,7 @@ char	*ft_getsavedchar(char *read_line)
 
 char    *get_next_line(int fd)
 {
-    static char *saved_chars = "\1";
+    static char *saved_chars = "";
     char        *read_line;
     char        *returned_line;
 
@@ -117,21 +118,21 @@ char    *get_next_line(int fd)
 		return(returned_line);
 	}
 	read_line = ft_read(fd);
-    if (saved_chars[0] == 0 && (read_line == NULL || read_line[0] == 0))
+    if ((saved_chars == NULL || saved_chars[0] == 0) && read_line[0] == 0)
 	{
-		free(saved_chars);
 		free(read_line);
         return (NULL);
 	}
 	if (!ft_eol(read_line) && read_line != NULL)
 	{
 		returned_line = ft_strjoins(saved_chars, read_line);
-		saved_chars = malloc(1);
-		saved_chars[0] = 0;
+		if (saved_chars[0] != 0)
+			free(saved_chars);
+		saved_chars = NULL;
 		return(returned_line);
 	}
 	returned_line = ft_getresult(saved_chars ,read_line);
-	if (*saved_chars != 1)
+	if (*saved_chars)
 		free(saved_chars);
     saved_chars = ft_getsavedchar(read_line);
     return (returned_line);
