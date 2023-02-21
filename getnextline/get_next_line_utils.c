@@ -1,18 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_getnextline_utils.c                             :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 14:42:43 by syakovle          #+#    #+#             */
-/*   Updated: 2023/01/28 16:45:35 by syakovle         ###   ########.fr       */
+/*   Updated: 2023/02/20 18:44:58 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <strings.h>
 #include <stdlib.h>
 #include <stdio.h>
+
+char	*ft_getsavedchar(char *read_line);
+
+int	ft_eol(char *buffer)
+{
+	if (buffer == NULL)
+		return (0);
+	while (*buffer)
+	{
+		if (*buffer == '\n')
+		{	
+			return (1);
+		}	
+		buffer++;
+	}
+	return (0);
+}
 
 size_t	ft_strlen(const char *theString)
 {
@@ -55,32 +72,57 @@ char	*ft_strjoins(char *s1, char *s2)
 	return (str);
 }
 
-char	*ft_strjoin(char *s1, char const *s2)
+char	*ft_getresult(char *saved_chars, char *read_line)
 {
-	char		*str;
-	int			i;
-	int			j;
-	const int	k = ft_strlen(s1);
-	const int	l = ft_strlen(s2);
+	int		index;
+	char	*result;
 
-	str = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (str == NULL)
+	if (read_line == NULL)
 		return (NULL);
-	i = 0;
-	j = 0;
-	while (i < k)
+	index = 0;
+	while (read_line[index])
+		index++;
+	result = malloc(sizeof(char) * (index + 1));
+	if (result == NULL)
+		return (NULL);
+	index = 0;
+	while (read_line[index])
 	{
-		str[i] = s1[i];
-		i++;
+		result[index] = read_line[index];
+		if (read_line[index] == '\n')
+			break ;
+		index++;
 	}
-	while (j < l)
+	result[index + 1] = 0;
+	result = ft_strjoins(saved_chars, result);
+	return (result);
+}
+
+char	*ft_result(char **saved_chars, char *read_line)
+{
+	char	*returned_line;
+
+	if ((saved_chars[0] == NULL) && read_line[0] == 0)
 	{
-		str[i] = s2[j];
-		i++;
-		j++;
+		free(read_line);
+		return (NULL);
 	}
-	str[i] = '\0';
-	if (*s1)
-		free(s1);
-	return (str);
+	if (!ft_eol(read_line) && read_line != NULL)
+	{
+		returned_line = ft_strjoins(saved_chars[0], read_line);
+		if (saved_chars[0])
+			free(saved_chars[0]);
+		if (*returned_line == 0)
+		{
+			free(returned_line);
+			return (NULL);
+		}
+		saved_chars[0] = NULL;
+		return (returned_line);
+	}
+	returned_line = ft_getresult(saved_chars[0], read_line);
+	if (saved_chars[0])
+		free(saved_chars[0]);
+	saved_chars[0] = ft_getsavedchar(read_line);
+	return (returned_line);
 }
