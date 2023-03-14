@@ -6,7 +6,7 @@
 /*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 15:49:13 by syakovle          #+#    #+#             */
-/*   Updated: 2023/03/11 15:54:23 by syakovle         ###   ########.fr       */
+/*   Updated: 2023/03/13 21:17:14 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,20 @@ int	isinpile(t_pile piles, int result)
 	return (false);
 }
 
+char	**ft_freearray(char **array)
+{
+	int	i;
+
+	i = 0;
+	while (array[i])
+	{
+		free(array[i]);
+		i++;
+	}
+	free(array);
+	return (NULL);
+}
+
 t_pile	replacevalues(t_pile piles)
 {
 	t_liste		*temp;
@@ -93,7 +107,9 @@ t_pile	ft_createpiles(t_pile piles, char **av)
 {
 	int				index;
 	long long int	result;
+	int				freeav;
 
+	freeav = 0;
 	index = 1;
 	piles.pile_a = NULL;
 	piles.pile_b = NULL;
@@ -105,6 +121,7 @@ t_pile	ft_createpiles(t_pile piles, char **av)
 		{
 			av = ft_split(av[index], ' ');
 			index = 0;
+			freeav = 1;
 		}
 		else
 			return (piles);
@@ -115,12 +132,17 @@ t_pile	ft_createpiles(t_pile piles, char **av)
 		if (!ft_isvalid(av[index]) || result > INT_MAX || result < INT_MIN
 			|| isinpile(piles, (int)result))
 		{
+			ft_printf("error\n");
 			freepile(piles);
+			if (freeav == 1)
+				ft_freearray(av);
 			exit(0);
 		}
 		piles.pile_a = addend(piles.pile_a, (int)result);
 		index++;
 	}
+	if (freeav == 1)
+		ft_freearray(av);
 	piles = replacevalues(piles);
 	return (piles);
 }
@@ -147,10 +169,14 @@ void	main(int ac, char **av)
 	char	*ret;
 
 	if (ac < 2)
+	{
+		ft_printf("error\n");
 		exit(0);
+	}
 	piles = ft_createpiles(piles, av);
 	if (piles.pile_a == NULL)
 	{
+		ft_printf("error\n");
 		freepile(piles);
 		exit(0);
 	}
