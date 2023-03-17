@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: syakovle <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:56:01 by syakovle          #+#    #+#             */
-/*   Updated: 2022/11/09 14:49:23 by syakovle         ###   ########.fr       */
+/*   Updated: 2023/03/15 19:15:32 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 long long int	ft_atoi(const char *nptr)
 {
-	char	*str;
+	char				*str;
 	long long int		res;
-	int		n;
+	int					n;
 
 	str = (char *)nptr;
 	res = 0;

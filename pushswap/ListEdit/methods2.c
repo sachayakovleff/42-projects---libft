@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   methods2.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/15 18:38:21 by syakovle          #+#    #+#             */
+/*   Updated: 2023/03/15 19:15:02 by syakovle         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../push_swap.h"
 #include <stdbool.h>
 
@@ -25,7 +37,7 @@ t_liste	*free_all(t_liste *pile)
 	return (NULL);
 }
 
-void freepile(t_pile piles)
+void	freepile(t_pile piles)
 {
 	if (piles.pile_a != NULL)
 	{
@@ -38,7 +50,7 @@ void freepile(t_pile piles)
 	free(piles.res);
 }
 
-void affichage(t_pile piles)
+void	affichage(t_pile piles)
 {
 	t_liste	*temp;
 

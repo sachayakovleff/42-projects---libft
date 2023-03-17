@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: syakovle <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:49:07 by syakovle          #+#    #+#             */
-/*   Updated: 2022/11/22 14:50:45 by syakovle         ###   ########.fr       */
+/*   Updated: 2023/03/15 19:32:51 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define FT_PRINTF_H
 # include <stdlib.h>
 # include <unistd.h>
-int	ft_printf(char *s, ...);
-#endif
 
+int	ft_printf(char *s, ...);
+
+#endif

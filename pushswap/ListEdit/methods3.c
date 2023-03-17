@@ -1,40 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   methods_reverserotate.c                            :+:      :+:    :+:   */
+/*   methods3.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/15 18:38:24 by syakovle          #+#    #+#             */
-/*   Updated: 2023/03/15 19:11:50 by syakovle         ###   ########.fr       */
+/*   Created: 2023/03/16 15:38:55 by syakovle          #+#    #+#             */
+/*   Updated: 2023/03/16 15:39:39 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
 
-t_liste	*rra(t_liste *pile_a)
+t_liste	*getendlist(t_liste *list)
 {
-	t_liste	*newlist;
-
-	newlist = getendlist(pile_a);
-	pile_a = clearlastlist(pile_a);
-	newlist->next = pile_a;
-	return (newlist);
+	while (list->next != NULL)
+		list = list->next;
+	return (list);
 }
 
-t_liste	*rrb(t_liste *pile_b)
+t_liste	*ft_setrank(t_liste *list, int min, int i)
 {
-	t_liste	*newlist;
+	t_liste	*temp;
 
-	newlist = getendlist(pile_b);
-	pile_b = clearlastlist(pile_b);
-	newlist->next = pile_b;
-	return (newlist);
+	temp = list;
+	while (temp != NULL && temp->value != min)
+		temp = temp->next;
+	if (temp != NULL)
+		temp->rank = i;
+	return (list);
 }
 
-t_pile	rrr(t_pile piles)
+int	ft_getlistlength(t_liste *list)
 {
-	piles.pile_a = rra(piles.pile_a);
-	piles.pile_b = rrb(piles.pile_b);
-	return (piles);
+	int	count;
+
+	count = 0;
+	while (list != NULL)
+	{
+		list = list->next;
+		count++;
+	}
+	return (count);
 }

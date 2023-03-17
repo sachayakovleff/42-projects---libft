@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   methods.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/15 18:38:19 by syakovle          #+#    #+#             */
+/*   Updated: 2023/03/16 15:39:14 by syakovle         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../push_swap.h"
 
 t_liste	*createlist(int x)
@@ -61,35 +73,4 @@ t_liste	*addendlist(t_liste *list, t_liste *pile)
 	if (list != NULL)
 		list->next = pile;
 	return (newlist);
-}
-
-t_liste	*getendlist(t_liste *list)
-{
-	while (list->next != NULL)
-		list = list->next;
-	return (list);
-}
-
-t_liste *ft_setrank(t_liste *list, int min, int i)
-{
-	t_liste	*temp;
-
-	temp = list;
-	while (temp != NULL && temp->value != min)
-		temp = temp->next;
-	if (temp != NULL)
-		temp->rank = i;
-	return (list);
-}
-int	ft_getlistlength(t_liste *list)
-{
-	int count;
-
-	count = 0;
-	while (list != NULL)
-	{
-		list = list->next;
-		count++;
-	}
-	return(count);
 }

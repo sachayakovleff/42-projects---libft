@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/16 18:14:05 by syakovle          #+#    #+#             */
+/*   Updated: 2023/03/16 18:52:41 by syakovle         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 # include <stdlib.h>
@@ -9,7 +21,7 @@
 typedef struct s_liste
 {
 	int				value;
-	int 			rank;
+	int				rank;
 	struct s_liste	*next;
 }				t_liste;
 
@@ -40,17 +52,14 @@ t_liste	*rrb(t_liste *pile_b);
 t_pile	rrr(t_pile piles);
 void	freepile(t_pile piles);
 void	affichage(t_pile piles);
-int	ft_issorted(t_liste *list);
-t_liste *ft_setrank(t_liste *list, int min, int i);
-int	ft_getlistlength(t_liste *list);
+int		ft_issorted(t_liste *list);
+t_liste	*ft_setrank(t_liste *list, int min, int i);
+int		ft_getlistlength(t_liste *list);
 t_pile	ft_pushswap3(t_pile piles);
 t_pile	ft_pushswap5(t_pile piles);
 t_pile	ft_pushswap16(t_pile piles);
 t_pile	ft_pushswap6(t_pile piles);
 t_pile	ft_pushswap8(t_pile piles);
-t_pile  getbestpile(t_pile piles);
-t_pile	ft_fix(t_pile piles);
-t_pile  ft_order(t_pile piles, int listlength, int num, int denum, int count);
-t_pile  ft_order2(t_pile piles, int listlength, int num, int denum);
+t_pile	getbestpile(t_pile piles);
 
 #endif
