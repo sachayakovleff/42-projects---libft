@@ -6,51 +6,41 @@
 #    By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/09 12:01:20 by syakovle          #+#    #+#              #
-#    Updated: 2023/03/17 13:47:16 by syakovle         ###   ########.fr        #
+#    Updated: 2023/03/17 14:38:46 by syakovle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRC	=	main.c \
-		main_utils.c \
-		pushswap/pb.c \
-		pushswap/push_swap_utils.c \
-		pushswap/push_swap.c \
-		PilesMethods/methods_reverserotate.c \
-		PilesMethods/methods_rotate.c \
-		PilesMethods/methods_swap.c \
-		PilesMethods/methods_push.c \
-		ListEdit/methods.c \
-		ListEdit/methods2.c \
-		ListEdit/methods3.c \
-		libft/ft_atoi.c \
-		libft/ft_strjoin.c \
+NAME = ft_printf.a
+
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror
+AR = ar rcs
+RM = rm -f
+LIBFT = ../libft/libft.a
+
+FILES = ft_printf
+
+SRCS_DIR = ./
+SRCS = $(addprefix $(SRCS_DIR), $(addsuffix .c, $(FILES)))
+
+OBJS_DIR = ./
+OBJS = $(addprefix $(OBJS_DIR), $(addsuffix .o, $(FILES)))
 
 
-OBJ	=	$(SRC:.c=.o)
+.c.o: $(SRCS)
+	$(CC) $(CFLAGS) -c -o $@ $<
 
-NAME	=	push_swap
+$(NAME): $(OBJS)
+	$(AR) $@ $(OBJS)
 
-CC	=	gcc
-
-LDFLAGS	=	-lmy -L ./lib/my/ -lncurses
-
-CFLAGS	=	-W -Wall -Wextra -Werror
-
-CPPFLAGS	=	-I ./include
-
-all:	$(NAME)
-
-$(NAME):	$(OBJ)
-	make -C lib/my/
-	$(CC) -o $(NAME) $(OBJ) $(LDFLAGS)
+all: $(NAME)
 
 clean:
-	make -C lib/my/ clean
-	rm -f $(OBJ)
-	rm -f *~
+	$(RM) $(OBJS)
 
-fclean:	clean
-	make -C lib/my/ fclean
-	rm -f $(NAME)
+fclean: clean
+	$(RM) $(NAME)
 
-re:	fclean	all
+re: clean all
+
+.PHONY: all clean fclean re

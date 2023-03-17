@@ -6,7 +6,7 @@
 /*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:34:21 by syakovle          #+#    #+#             */
-/*   Updated: 2022/11/22 15:48:08 by syakovle         ###   ########.fr       */
+/*   Updated: 2023/03/17 14:14:39 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,17 +45,10 @@ void	ft_getstring(char *str, va_list args, int *i)
 		ft_putstr_fd(va_arg(args, char *), 1, i);
 	else if (str[0] == 'c')
 		ft_putchar_fd(va_arg(args, int), 1, i);
-	else if (str[0] == 'p')
-	{
-		ft_putstr_fd("0x", 1, i);
-		ft_putnbrbase(va_arg(args, size_t), i);
-	}
 	else if (str[0] == 'd' || str[0] == 'i')
 		ft_putnbr_fd(va_arg(args, int), 1, i);
 	else if (str[0] == 'u')
 		ft_putnbr_fd(va_arg(args, unsigned int), 1, i);
-	else if (str[0] == 'x')
-		ft_putnbrbase(va_arg(args, unsigned int), i);
 	else if (str[0] == 'X')
 		ft_putnbrbaseup(va_arg(args, unsigned int), i);
 	else if (str[0] == '%')
