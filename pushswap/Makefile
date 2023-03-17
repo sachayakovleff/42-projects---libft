@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/11/09 12:01:20 by syakovle          #+#    #+#              #
-#    Updated: 2023/03/17 13:47:16 by syakovle         ###   ########.fr        #
+#    Created: 2023/03/17 02:23:38 by syakovle          #+#    #+#              #
+#    Updated: 2023/03/17 13:51:29 by syakovle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,33 +24,27 @@ SRC	=	main.c \
 		ListEdit/methods3.c \
 		libft/ft_atoi.c \
 		libft/ft_strjoin.c \
+		printf/ft_printf.c \
 
 
 OBJ	=	$(SRC:.c=.o)
 
-NAME	=	push_swap
+NAME = push_swap.a
 
-CC	=	gcc
+CC = gcc
 
-LDFLAGS	=	-lmy -L ./lib/my/ -lncurses
-
-CFLAGS	=	-W -Wall -Wextra -Werror
-
-CPPFLAGS	=	-I ./include
+CFLAGS = -Wall -Wextra -Werror
 
 all:	$(NAME)
 
 $(NAME):	$(OBJ)
-	make -C lib/my/
-	$(CC) -o $(NAME) $(OBJ) $(LDFLAGS)
+	$(CC) -o $(NAME) $(OBJ)
 
 clean:
-	make -C lib/my/ clean
 	rm -f $(OBJ)
 	rm -f *~
 
 fclean:	clean
-	make -C lib/my/ fclean
 	rm -f $(NAME)
 
 re:	fclean	all
