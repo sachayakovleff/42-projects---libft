@@ -6,7 +6,7 @@
 /*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 15:49:13 by syakovle          #+#    #+#             */
-/*   Updated: 2023/03/17 02:09:33 by syakovle         ###   ########.fr       */
+/*   Updated: 2023/04/07 15:03:53 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_pile	replacevalues(t_pile piles, int i, int min)
 	}
 }
 
-t_pile	ft_setpile(t_pile piles, int index, char **av, int freeav)
+t_pile	ft_setpile(t_pile piles, int index, char **av)
 {
 	long long int	result;
 
@@ -58,10 +58,9 @@ t_pile	ft_setpile(t_pile piles, int index, char **av, int freeav)
 		if (!ft_isvalid(av[index]) || result > INT_MAX || result < INT_MIN
 			|| isinpile(piles, (int)result))
 		{
-			ft_printf("error\n");
+			ft_printf("Error\n");
 			freepile(piles);
-			if (freeav == 1)
-				ft_freearray(av);
+			ft_freearray(av);
 			exit(0);
 		}
 		piles.pile_a = addend(piles.pile_a, (int)result);
@@ -72,29 +71,23 @@ t_pile	ft_setpile(t_pile piles, int index, char **av, int freeav)
 
 t_pile	ft_createpiles(t_pile piles, char **av)
 {
-	int				index;
-	int				freeav;
+	int				i;
+	char			**values;
 
-	freeav = 0;
-	index = 1;
+	if (av[1][0] && !av[1][1] && !av[2])
+		exit(0);
+	i = 1;
 	piles.pile_a = NULL;
 	piles.pile_b = NULL;
 	piles.res = malloc(sizeof(char));
 	piles.res[0] = 0;
-	if (ft_hasspace(av[1]))
+	while (av[i])
 	{
-		if (av[2] == NULL)
-		{
-			av = ft_split(av[index], ' ');
-			index = 0;
-			freeav = 1;
-		}
-		else
-			return (piles);
+		values = ft_split(av[i], ' ');
+		piles = ft_setpile(piles, 0, values);
+		ft_freearray(values);
+		i++;
 	}
-	piles = ft_setpile(piles, index, av, freeav);
-	if (freeav == 1)
-		ft_freearray(av);
 	piles = replacevalues(piles, 0, INT_MAX);
 	return (piles);
 }
@@ -119,15 +112,15 @@ int	main(int ac, char **av)
 {
 	t_pile	piles;
 
-	if (ac < 2)
+	if (ac < 2 || av[1][0] == 0)
 	{
-		ft_printf("error\n");
+		ft_printf("Error\n");
 		exit(0);
 	}
 	piles = ft_createpiles(piles, av);
 	if (piles.pile_a == NULL)
 	{
-		ft_printf("error\n");
+		ft_printf("Error\n");
 		freepile(piles);
 		exit(0);
 	}
