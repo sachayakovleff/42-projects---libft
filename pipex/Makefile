@@ -5,78 +5,52 @@
 #                                                     +:+ +:+         +:+      #
 #    By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/11/09 12:01:20 by syakovle          #+#    #+#              #
-#    Updated: 2023/04/25 01:24:28 by syakovle         ###   ########.fr        #
+#    Created: 2023/03/17 02:23:38 by syakovle          #+#    #+#              #
+#    Updated: 2023/04/25 01:26:54 by syakovle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libft.a
+NAME = pipex.a
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 AR = ar rcs
 RM = rm -f
+LIBFT = libft/libft.a
+PRINTF = printf/printf.a
 
-FILES = ft_memset \
-		ft_bzero \
-		ft_countpf \
-		ft_memcpy \
-		ft_memmove \
-		ft_memchr \
-		ft_memcmp \
-		ft_strlen \
-		ft_strlcpy \
-		ft_strlcat \
-		ft_strchr \
-		ft_strrchr \
-		ft_strnstr \
-		ft_strncmp \
-		ft_atoi \
-		ft_isalpha \
-		ft_isdigit \
-		ft_isalnum \
-		ft_isascii \
-		ft_isprint \
-		ft_toupper \
-		ft_tolower \
-		ft_calloc \
-		ft_strdup \
-		ft_strjoin \
-		ft_substr \
-		ft_strtrim \
-		ft_split \
-		ft_itoa \
-		ft_strmapi \
-		ft_putstr0x_fd \
-		ft_striteri \
-		ft_putchar_fd \
-		ft_putstr_fd \
-		ft_putendl_fd \
-		ft_putnbr_fd \
+FILES	=	childs	\
+			error	\
+			free	\
 
 SRCS_DIR = ./
 SRCS = $(addprefix $(SRCS_DIR), $(addsuffix .c, $(FILES)))
-SRCS_B = $(addprefix $(SRCS_DIR), $(addsuffix .c, $(FILES_B)))
 
 OBJS_DIR = ./
 OBJS = $(addprefix $(OBJS_DIR), $(addsuffix .o, $(FILES)))
-OBJS_B = $(addprefix $(OBJS_DIR), $(addsuffix .o, $(FILES_B)))
 
 
 .c.o: $(SRCS)
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 $(NAME): $(OBJS)
-	$(AR) $@ $^
+	$(AR) $@ $(OBJS)
+	@make all -C libft
+	@make all -C printf
+	$(CC) $(CFLAGS) ./pipex.c $(NAME) ./printf/ft_printf.a ./libft/libft.a -o pipex
 
 all: $(NAME)
 
 clean:
-	$(RM) $(OBJS) $(OBJS_B)
+	$(RM) $(OBJS)
+	@make clean -C libft
+	@make clean -C printf
 
 fclean: clean
-	$(RM) $(NAME)
-
+	$(RM) $(NAME) pipex
+	@make fclean -C libft
+	@make fclean -C printf
+	
 re: clean all
 
-.PHONY: bonus all clean fclean re
+.PHONY: all clean fclean re

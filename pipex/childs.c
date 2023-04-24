@@ -6,7 +6,7 @@
 /*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 17:05:58 by syakovle          #+#    #+#             */
-/*   Updated: 2023/04/16 14:47:14 by syakovle         ###   ########.fr       */
+/*   Updated: 2023/04/18 14:56:44 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	ft_exec1(t_pipex *pipex, char **envr)
 {
 	char	*cmd;
-	char	**args;
 
 	dup2(pipex->pipeid[1], 1);
 	close(pipex->pipeid[0]);
@@ -33,7 +32,6 @@ void	ft_exec1(t_pipex *pipex, char **envr)
 void	ft_exec2(t_pipex *pipex, char **envr)
 {
 	char	*cmd;
-	char	**args;
 
 	dup2(pipex->pipeid[0], 0);
 	close(pipex->pipeid[1]);

@@ -6,7 +6,7 @@
 /*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 14:31:29 by syakovle          #+#    #+#             */
-/*   Updated: 2023/04/15 18:09:04 by syakovle         ###   ########.fr       */
+/*   Updated: 2023/04/25 01:32:36 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_initpipex(t_pipex *pipex, int ac, char **av)
 	pipex->fd1 = open(av[1], O_RDONLY);
 	if (pipex->fd1 < 0)
 		ft_msgerr(ERR_OPEN);
-	pipex->fd2 = open(av[4], O_CREAT | O_TRUNC | O_WRONLY);
+	pipex->fd2 = open(av[4],  O_TRUNC | O_CREAT | O_RDWR, 0000644);
 	if (pipex->fd2 < 0)
 	{
 		close(pipex->fd1);
