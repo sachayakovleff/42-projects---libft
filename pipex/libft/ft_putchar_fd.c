@@ -6,7 +6,7 @@
 /*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 13:20:34 by syakovle          #+#    #+#             */
-/*   Updated: 2022/11/19 15:59:38 by syakovle         ###   ########.fr       */
+/*   Updated: 2023/04/25 18:59:37 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	ft_putchar_fd(char c, int fd, int *d)
 {
+	(void) fd;
 	write(fd, &c, 1);
 	*d += 1;
 }

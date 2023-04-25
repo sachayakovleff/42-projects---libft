@@ -6,7 +6,7 @@
 /*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:34:21 by syakovle          #+#    #+#             */
-/*   Updated: 2023/03/17 14:14:39 by syakovle         ###   ########.fr       */
+/*   Updated: 2023/04/25 19:01:15 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,21 +42,21 @@ void	ft_putnbrbaseup(size_t nb, int *d)
 void	ft_getstring(char *str, va_list args, int *i)
 {
 	if (str[0] == 's')
-		ft_putstr_fd(va_arg(args, char *), 1, i);
+		ft_putstr_fd(va_arg(args, char *), 2, i);
 	else if (str[0] == 'c')
-		ft_putchar_fd(va_arg(args, int), 1, i);
+		ft_putchar_fd(va_arg(args, int), 2, i);
 	else if (str[0] == 'd' || str[0] == 'i')
-		ft_putnbr_fd(va_arg(args, int), 1, i);
+		ft_putnbr_fd(va_arg(args, int), 2, i);
 	else if (str[0] == 'u')
-		ft_putnbr_fd(va_arg(args, unsigned int), 1, i);
+		ft_putnbr_fd(va_arg(args, unsigned int), 2, i);
 	else if (str[0] == 'X')
 		ft_putnbrbaseup(va_arg(args, unsigned int), i);
 	else if (str[0] == '%')
-		ft_putchar_fd('%', 1, i);
+		ft_putchar_fd('%', 2, i);
 	else
 	{
-		ft_putchar_fd('%', 1, i);
-		ft_putchar_fd(str[0], 1, i);
+		ft_putchar_fd('%', 2, i);
+		ft_putchar_fd(str[0], 2, i);
 	}
 }
 
@@ -79,7 +79,7 @@ int	ft_printf(char *str, ...)
 			ft_getstring(str + i, args, count);
 		}
 		else
-			ft_putchar_fd(str[i], 1, count);
+			ft_putchar_fd(str[i], 2, count);
 		i++;
 	}
 	return (res);

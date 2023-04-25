@@ -6,7 +6,7 @@
 /*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 14:31:29 by syakovle          #+#    #+#             */
-/*   Updated: 2023/04/25 01:32:36 by syakovle         ###   ########.fr       */
+/*   Updated: 2023/04/25 19:05:02 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,23 +35,6 @@ void	ft_initpipex(t_pipex *pipex, int ac, char **av)
 	pipex->args2 = malloc(sizeof(char));
 	pipex->args1[0] = 0;
 	pipex->args2[0] = 0;
-}
-
-char	*ft_find_path(char **envr)
-{
-	while (ft_strncmp("PATH", *envr, 4))
-		envr++;
-	return (*envr + 5);
-}
-
-void	ft_setenvr(t_pipex *pipex, char **envr)
-{
-	char	*temp;
-
-	pipex->path = ft_find_path(envr);
-	pipex->pathcmd = ft_split(pipex->path, ':');
-	temp = ft_strdup(pipex->pathcmd[3]);
-	pipex->path = ft_strjoin(temp, "/");
 }
 
 void	getcmd1(t_pipex *pipex, char *str)
@@ -113,17 +96,16 @@ int	main(int ac, char **av, char **envr)
 	t_pipex	pipex;
 
 	ft_initpipex(&pipex, ac, av);
-	ft_setenvr(&pipex, envr);
 	ft_setargs(&pipex, ac, av);
 	pipex.pid1 = fork();
 	if (pipex.pid1 == 0)
 		ft_exec1(&pipex, envr);
+	waitpid(pipex.pid1, NULL, 0);
 	pipex.pid2 = fork();
 	if (pipex.pid2 == 0)
 		ft_exec2(&pipex, envr);
 	close(pipex.pipeid[0]);
 	close(pipex.pipeid[1]);
-	waitpid(pipex.pid1, NULL, 0);
 	waitpid(pipex.pid2, NULL, 0);
 	ft_freepipex(pipex);
 	return (0);
