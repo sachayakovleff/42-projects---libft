@@ -6,7 +6,7 @@
 /*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 14:44:52 by syakovle          #+#    #+#             */
-/*   Updated: 2023/04/15 18:03:42 by syakovle         ###   ########.fr       */
+/*   Updated: 2023/04/26 03:48:07 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,7 @@ void	ft_msgerr(char *err);
 void	ft_err(char *err);
 void	ft_exec1(t_pipex *pipex, char **envr);
 void	ft_exec2(t_pipex *pipex, char **envr);
+void	ft_setenvr1(t_pipex *pipex, char **envr);
+void	ft_setenvr2(t_pipex *pipex, char **envr);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/17 02:23:38 by syakovle          #+#    #+#              #
-#    Updated: 2023/04/25 01:26:54 by syakovle         ###   ########.fr        #
+#    Updated: 2023/04/26 03:51:00 by syakovle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ PRINTF = printf/printf.a
 FILES	=	childs	\
 			error	\
 			free	\
+			getcmd	\
 
 SRCS_DIR = ./
 SRCS = $(addprefix $(SRCS_DIR), $(addsuffix .c, $(FILES)))

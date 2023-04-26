@@ -6,7 +6,7 @@
 /*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 15:10:39 by syakovle          #+#    #+#             */
-/*   Updated: 2023/04/25 19:07:05 by syakovle         ###   ########.fr       */
+/*   Updated: 2023/04/26 03:08:33 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@ void	ft_freestr_array(char **str)
 	int	i;
 
 	i = 0;
-	if (!str)
-		return;
-	while (str && str[i])
+	while (str[i])
 	{
 		free(str[i]);
 		i++;
